@@ -1,0 +1,14 @@
+# Created by .ignore support plugin (hsz.mobi)
+/node_modules/
+
+.idea
+
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/task.iml
+.idea/workspace.xml
+
+
+
+

@@ -25,8 +25,8 @@
 
         <section>
             <router-view></router-view>
-            <c-input max="2" type="text" v-model="firstName" label="Number Label"></c-input>
-            <c-input type="text" v-model="firstName2" label="Number Label"></c-input>
+            <!--<c-input max="2" type="text" v-model="firstName" label="Number Label"></c-input>-->
+            <!--<c-input type="text" v-model="firstName2" label="Number Label"></c-input>-->
         </section>
 
     </div>
@@ -44,7 +44,7 @@
         },
 
         components: {
-            cInput: Input
+//            cInput: Input
         }
     }
 </script>

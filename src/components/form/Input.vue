@@ -23,30 +23,11 @@
                 type: String,
                 default: 'text',
             },
-
-            label: {
-                type: String,
-                default: ''
-            },
-
-            id: {
-                type: String,
-                default: ''
-            },
-
-            name: {
-                type: String,
-                default: ''
-            },
-
-            max: {
-                type: String,
-                default: ''
-            },
-            min: {
-                type: String,
-                default: ''
-            }
+            label: String,
+            id: String,
+            name: String,
+            max: String,
+            min: String
         },
 
         data() {

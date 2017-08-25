@@ -1,5 +1,2 @@
-import TmInput from './Input.vue'
 
-export const formComponent = [
-    {tagName: 'tm-input', tag: TmInput}
-];
+export { default as TmInput } from './TmInput/index'

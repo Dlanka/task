@@ -1,17 +1,32 @@
 
 import Vue from 'vue'
 import App from './App.vue'
+import * as Components from './components/form/index'
 import { createRouter } from './routes/index'
 
-import { formComponent }  from './components/form/index'
+import TmSidePanel  from './components/SidePanel/SidePanel.vue'
 
-//Load Components as globally
-formComponent.forEach((c)=>{
-    Vue.component(c.tagName,c.tag);
+
+//plugin Components as globally
+Object.values(Components).forEach(Component => {
+    Vue.use(Component)
 });
+
+Vue.component('tm-side-panel',TmSidePanel);
 
 //Create router instance
 const router = createRouter();
+
+Vue.mixin({
+    data(){
+        return {
+            isShowSidePanel: false
+        }
+    },
+
+
+});
+
 
 new Vue({
     el: '#app',

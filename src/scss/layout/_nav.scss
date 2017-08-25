@@ -1,3 +1,15 @@
+@import "../variable";
+
+$barBgColor:#F57F17;
+
 nav {
-  background: #ccc;
+  background: $barBgColor;
+  
+  a {
+    color: $white;
+
+    &:hover {
+      color: rgba($white,0.86);
+    }
+  }
 }

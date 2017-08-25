@@ -1,5 +1,5 @@
 <template>
-    <div class="input-group" ref="inputGroup">
+    <div  class="input-group" ref="inputGroup">
         <input v-if="type == 'text'" type="text"
                :id="id !== undefined ? id : false"
                :maxlength="max !== undefined ? max : false"
@@ -38,7 +38,7 @@
 
 <script>
     export default {
-
+        name: 'tm-input',
         props: {
             type: {
                 type: String,
@@ -57,10 +57,6 @@
                 isValidLabel: false,
                 isRequired: false
             }
-        },
-
-        mounted() {
-
         },
 
         watch: {
@@ -82,7 +78,7 @@
 
                 if (this.inputValue.length > 0) {
                     inputGroup.classList.add('is-not-empty');
-                }else {
+                } else {
                     inputGroup.classList.remove('is-not-empty');
                 }
             }
@@ -94,6 +90,6 @@
 
 <style lang="scss">
 
-    @import "../../scss/components/form/input.scss";
+    @import "../../../scss/components/form/input";
 
 </style>

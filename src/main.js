@@ -1,8 +1,14 @@
+
 import Vue from 'vue'
 import App from './App.vue'
 import { createRouter } from './routes/index'
 
-import Input from './components/form/Input.vue'
+import { formComponent }  from './components/form/index'
+
+//Load Components as globally
+formComponent.forEach((c)=>{
+    Vue.component(c.tagName,c.tag);
+});
 
 //Create router instance
 const router = createRouter();
@@ -10,8 +16,5 @@ const router = createRouter();
 new Vue({
     el: '#app',
     router,
-    components:{
-        Input
-    },
     render: h => h(App)
 });

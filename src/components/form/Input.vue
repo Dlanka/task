@@ -1,15 +1,36 @@
 <template>
     <div class="input-group" ref="inputGroup">
-        <input type="text"
-               :id="id.length > 0 ?  id : false"
-               :maxlength="max > 0 ? max : false"
-               :minlenght="min > 0 ? min : false"
-               :name="name.length > 0 ?  name : false"
+        <input v-if="type == 'text'" type="text"
+               :id="id !== undefined ? id : false"
+               :maxlength="max !== undefined ? max : false"
+               :minlenght="min !== undefined ? min : false"
+               :name="name !== undefined ?  name : false"
                v-model="inputValue"
                @focus="onFocus"
                @blur="onBlur"
         >
-        <label v-if="label.length> 0 ? true : false">{{label}}</label>
+
+        <input v-if="type == 'number'" type="number"
+               :id="id !== undefined ? id : false"
+               :maxlength="max !== undefined ? max : false"
+               :minlenght="min !== undefined ? min : false"
+               :name="name !== undefined ?  name : false"
+               v-model="inputValue"
+               @focus="onFocus"
+               @blur="onBlur"
+        >
+
+        <input v-if="type == 'password'" type="password"
+               :id="id !== undefined ? id : false"
+               :maxlength="max !== undefined ? max : false"
+               :minlenght="min !== undefined ? min : false"
+               :name="name !== undefined ?  name : false"
+               v-model="inputValue"
+               @focus="onFocus"
+               @blur="onBlur"
+        >
+
+        <label v-if="label !== undefined ? true : false">{{label}}</label>
         <div class="animate-line" ref="animateLine"></div>
         <div class="bottom-line"></div>
     </div>
@@ -39,26 +60,30 @@
         },
 
         mounted() {
-            if (this.label.length > 0) {
-                this.isValidLabel = true;
-            }
+
         },
 
         watch: {
             inputValue() {
                 this.$emit('input', this.inputValue)
-            },
-
+            }
         },
 
         methods: {
             onFocus() {
-                this.$refs.inputGroup.classList.add('is-focus');
+                const inputGroup = this.$refs.inputGroup;
+                inputGroup.classList.add('is-focus');
             },
 
             onBlur() {
-                if (!this.inputValue.length > 0) {
-                    this.$refs.inputGroup.classList.remove('is-focus');
+                const inputGroup = this.$refs.inputGroup;
+
+                inputGroup.classList.remove('is-focus');
+
+                if (this.inputValue.length > 0) {
+                    inputGroup.classList.add('is-not-empty');
+                }else {
+                    inputGroup.classList.remove('is-not-empty');
                 }
             }
         }

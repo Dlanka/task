@@ -23,10 +23,10 @@
             </nav>
         </header>
 
+
         <section>
+            <tm-input label="Nuber"></tm-input>
             <router-view></router-view>
-            <!--<c-input max="2" type="text" v-model="firstName" label="Number Label"></c-input>-->
-            <!--<c-input type="text" v-model="firstName2" label="Number Label"></c-input>-->
         </section>
 
     </div>
@@ -37,19 +37,11 @@
     export default {
         name: 'app',
         data() {
-            return {
-                firstName: '',
-                firstName2: ''
-            }
-        },
-
-        components: {
-//            cInput: Input
+            return {a:''}
         }
     }
 </script>
 
 <style lang="scss">
     @import "scss/main.scss";
-
 </style>

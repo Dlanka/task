@@ -10,8 +10,5 @@ const router = createRouter();
 new Vue({
     el: '#app',
     router,
-    components:{
-        Input
-    },
     render: h => h(App)
 });

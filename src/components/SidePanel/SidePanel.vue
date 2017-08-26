@@ -1,7 +1,7 @@
 <template>
     <div class="sidePanel-outer" :class="{'is-Show':isShow}">
         <div class="sidePanel">
-            <router-view name="sidePanel"></router-view>
+           <slot>asasas</slot>
         </div>
     </div>
 </template>
@@ -10,23 +10,25 @@
 
     export default {
         name: 'tm-side-panel',
-        props: {
-            show: Boolean
-        },
 
         data() {
             return {
                 isShow: false
             }
         },
+        mounted(){
+            Event.$on('showSidePanel', () => {
+                this.isShow = true;
+            });
 
-        watch: {
-            isShow(){
-                return this.show;
-            }
-        },
+            Event.$on('hideSidePanel', () => {
+                this.isShow = false;
+            });
 
-        methods: {}
+            Event.$on('toggleSidePanel', () => {
+                this.isShow = !this.isShow;
+            });
+        }
 
     }
 </script>

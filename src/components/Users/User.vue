@@ -12,14 +12,12 @@
 
         data() {
             return {
-
             }
         },
 
         methods: {
             showPanel(){
-                alert('sas')
-                this.isShowSidePanel = true;
+                this.showSidePanel()
             }
         }
 

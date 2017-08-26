@@ -1,30 +1,41 @@
 @import "../../variable";
 
+@mixin slide-animation {
+  -webkit-transition: 0.5s cubic-bezier(.47, .47, .23, .98);
+  -moz-transition: 0.5s cubic-bezier(.47, .47, .23, .98);
+  -ms-transition: 0.5s cubic-bezier(.47, .47, .23, .98);
+  -o-transition: 0.5s cubic-bezier(.47, .47, .23, .98);
+  transition: 0.5s cubic-bezier(.47, .47, .23, .98);
+}
+
 .sidePanel-outer {
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: 999;
   top:0;
   left:0;
   background: rgba($black,0.3);
-  display: none;
+  opacity: 0;
+  z-index:-1;
+  @include slide-animation;
 
   .sidePanel {
     width: 50%;
     background: $white;
     height: 100%;
     position: absolute;
-    right: 0;
+    right: -100%;
     top: 0;
-    display: none;
+    @include slide-animation;
   }
 
   &.is-Show {
-    display: block;
+    opacity: 1;
+    z-index:99;
 
     .sidePanel {
-      display: block;
+      right: 0;
     }
+
   }
 }

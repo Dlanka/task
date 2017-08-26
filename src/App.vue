@@ -8,16 +8,18 @@
                 </a>
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/test">User</router-link>
+                        <router-link class="nav-link" to="/user">User</router-link>
                     </li>
                 </ul>
             </nav>
         </header>
 
-        <tm-side-panel :show="isShowSidePanel"></tm-side-panel>
+        <!--Side Panel-->
+        <tm-side-panel>
+            <router-view name="sidePanel"></router-view>
+        </tm-side-panel>
 
         <section>
-            <button @click="showPanel">Show panel</button>
             <router-view></router-view>
         </section>
 
@@ -25,21 +27,14 @@
 </template>
 
 <script>
+
     export default {
         name: 'app',
         data() {
-            return {
-                a: ''
-            }
-        },
-        mounted() {
-            this.$createElement('input');
+            return {}
         },
 
         methods: {
-            showPanel() {
-                this.isShowSidePanel = true;
-            }
         }
     }
 </script>

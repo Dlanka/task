@@ -1,4 +1,77 @@
+//Colors
+$primary:#00BCD4;
+$p-light:#62efff;
+$p-dark:#008ba3;
 
-$black:#000;
+$secondary:#8bc34a;
+$s-light:#bef67a;
+$s-dark:#5a9216;
+
+$black: #000000;
 $grey: #212121;
-$white: rgb(255, 255, 255);
+$white: #ffffff;
+$orange: #FF3D00;
+$cyan: #00BCD4;
+$green: #8BC34A;
+$red: #F44336;
+
+$primary: $cyan;
+
+//Font Size
+$f-size-xs-big: 42px;
+$f-size-biggest: 36px;
+$f-size-medium: 24px;
+$f-size-small: 18px;
+$f-size-smallest: 14px;
+$f-size-xs-small: 12px;
+
+//Heading Font size
+$h1: $f-size-xs-big;
+$h2: $f-size-biggest;
+$h3: $f-size-medium;
+$h4: $f-size-small;
+$h5: $f-size-smallest;
+$h6: $f-size-xs-small;
+
+//Base Font size
+$base-font-size: $f-size-smallest;
+
+//Margin
+@mixin margin {
+  $class-margin: m !default;
+  $class-margin-cag: ('t', 'b', 'r', 'l');
+  $margin-map: (
+          't':'top',
+          'b':'bottom',
+          'l':'left',
+          'r':'right'
+  );
+
+  @for $i from 0 through 50 {
+    @each $ctg in $class-margin-cag {
+      .m#{$ctg}-#{$i} {
+        margin-#{map-get($margin-map, $ctg)}: 0px + $i !important;
+      }
+    }
+  }
+}
+
+//Padding
+@mixin padding {
+  $class-margin-cag: ('t', 'b', 'r', 'l');
+  $margin-map: (
+          't':'top',
+          'b':'bottom',
+          'l':'left',
+          'r':'right'
+  );
+
+  @for $i from 0 through 50 {
+    @each $ctg in $class-margin-cag {
+      .p#{$ctg}-#{$i} {
+        padding-#{map-get($margin-map, $ctg)}: 0px + $i !important;
+      }
+    }
+  }
+}
+

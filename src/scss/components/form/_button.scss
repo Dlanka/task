@@ -1,0 +1,44 @@
+@import "../../variable";
+
+.tm-button {
+
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  background: $secondary;
+  font-size: $base-font-size;
+  padding: 8px 28px;
+  text-align: center;
+  color: $white;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  //Alignment
+  &.left {
+    text-align: left;
+  }
+
+  &.right {
+    text-align: right;
+  }
+
+  //Sizes
+  &.small {
+    padding: 6px 12px;
+  }
+
+  &.large {
+    padding: 12px 30px;
+    font-size: $f-size-small;
+  }
+
+  //Colors
+  &.s-dark {
+    color: $white;
+    background: $s-dark;
+  }
+
+  &:active {
+    box-shadow: 0 3px 5px rgba($black, 0.15);
+  }
+}

@@ -1,44 +1,7 @@
-<template>
-    <div  class="input-group" ref="inputGroup">
-        <input v-if="type == 'text'" type="text"
-               :id="id !== undefined ? id : false"
-               :maxlength="max !== undefined ? max : false"
-               :minlenght="min !== undefined ? min : false"
-               :name="name !== undefined ?  name : false"
-               v-model="inputValue"
-               @focus="onFocus"
-               @blur="onBlur"
-        >
-
-        <input v-if="type == 'number'" type="number"
-               :id="id !== undefined ? id : false"
-               :maxlength="max !== undefined ? max : false"
-               :minlenght="min !== undefined ? min : false"
-               :name="name !== undefined ?  name : false"
-               v-model="inputValue"
-               @focus="onFocus"
-               @blur="onBlur"
-        >
-
-        <input v-if="type == 'password'" type="password"
-               :id="id !== undefined ? id : false"
-               :maxlength="max !== undefined ? max : false"
-               :minlenght="min !== undefined ? min : false"
-               :name="name !== undefined ?  name : false"
-               v-model="inputValue"
-               @focus="onFocus"
-               @blur="onBlur"
-        >
-
-        <label v-if="label !== undefined ? true : false">{{label}}</label>
-        <div class="animate-line" ref="animateLine"></div>
-        <div class="bottom-line"></div>
-    </div>
-</template>
-
 <script>
     export default {
         name: 'tm-input',
+
         props: {
             type: {
                 type: String,
@@ -48,24 +11,42 @@
             id: String,
             name: String,
             max: String,
-            min: String
+            min: String,
+            value: {
+                required: false
+            }
         },
 
         data() {
             return {
-                inputValue: '',
-                isValidLabel: false,
-                isRequired: false
+                lazyValue: this.value !== undefined ? this.value : ''
             }
         },
 
-        watch: {
-            inputValue() {
-                this.$emit('input', this.inputValue)
+        computed: {
+            inputValue: {
+                get () {
+                    return this.value;
+                },
+                set (value) {
+                    this.lazyValue = value;
+                }
+            },
+
+            isNotEmpty() {
+                return this.inputValue.length > 0 ? true : false;
             }
+        },
+
+        mounted() {
+            this.onBlur();
         },
 
         methods: {
+            onInput(e) {
+                this.inputValue = e.target.value;
+                this.$emit('input', e.target.value);
+            },
             onFocus() {
                 const inputGroup = this.$refs.inputGroup;
                 inputGroup.classList.add('is-focus');
@@ -75,13 +56,87 @@
                 const inputGroup = this.$refs.inputGroup;
 
                 inputGroup.classList.remove('is-focus');
-
-                if (this.inputValue.length > 0) {
+                if (this.lazyValue.length > 0) {
                     inputGroup.classList.add('is-not-empty');
                 } else {
                     inputGroup.classList.remove('is-not-empty');
                 }
             }
+        },
+
+        render(createElement) {
+            let self = this;
+            let labelElement = null;
+
+            //Check prop label is undefined
+            if (this.label !== undefined) {
+                labelElement = createElement(
+                    'label', {
+                        domProps: {
+                            innerHTML: this.label
+                        },
+                    }
+                )
+            }
+
+            return createElement(
+                'div', {
+                    'class': {
+                        'input-group': true,
+                        'is-not-empty': this.isNotEmpty
+                    },
+                    ref: 'inputGroup'
+                },
+                [
+                    //Input
+                    createElement(
+                        'input', {
+                            domProps: {
+                                value: self.inputValue
+                            },
+                            attrs: {
+                                type: this.type,
+                                id: this.id !== undefined ? this.id : false,
+                                maxlength: this.max !== undefined ? this.max : false,
+                                minlenght: this.min !== undefined ? this.min : false,
+                                name: this.name !== undefined ? this.name : false
+                            },
+                            on: {
+                                input(e) {
+                                    self.onInput(e)
+                                },
+                                focus(e) {
+                                    self.onFocus(e)
+                                },
+                                blur(e) {
+                                    self.onBlur(e)
+                                }
+
+                            }
+                        }
+                    ),
+
+                    //Label
+                    labelElement,
+
+                    //line Animation
+                    createElement(
+                        'div', {
+                            'class': {
+                                'animate-line': true
+                            },
+                            ref: 'animateLine'
+                        }
+                    ),
+
+                    //Bottom Line
+                    createElement('div', {
+                        'class': {
+                            'bottom-line': true
+                        }
+                    }),
+                ]
+            )
         }
 
     }

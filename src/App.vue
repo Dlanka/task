@@ -19,7 +19,12 @@
             <router-view name="sidePanel"></router-view>
         </tm-side-panel>
 
-        <section>
+        <section class="main-block">
+
+            <div class="container">
+                <tm-top-bar @click="action"></tm-top-bar>
+            </div>
+
             <router-view></router-view>
         </section>
 
@@ -27,6 +32,7 @@
 </template>
 
 <script>
+    import TmTopBar from "./components/topBar/TmTopBar.vue"
 
     export default {
         name: 'app',
@@ -34,7 +40,27 @@
             return {}
         },
 
+        computed: {
+            //Top Button Action
+            action() {
+                if (this.$store.getters.buttonAction) {
+                    return this.$store.getters.buttonAction;
+                } else {
+                    return this.addNew;
+                }
+            }
+        },
+
+        mounted() {
+            this.$store.dispatch('toggleTopBar', true);
+        },
+
         methods: {
+            addNew() {}
+        },
+
+        components: {
+            'tm-top-bar': TmTopBar
         }
     }
 </script>
@@ -42,3 +68,5 @@
 <style lang="scss">
     @import "scss/main.scss";
 </style>
+6cjkl;'
+[poiuytrtyuioppo./

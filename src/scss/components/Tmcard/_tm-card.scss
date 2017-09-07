@@ -1,0 +1,12 @@
+@import "../../variable";
+
+.tm-card {
+  -webkit-box-shadow: 0 2px 5px rgba($black, .15);
+  -moz-box-shadow: 0 2px 5px rgba($black, .15);
+  box-shadow: 0 2px 5px rgba($black, .15);
+  padding: 15px 30px;
+  
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}

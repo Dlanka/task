@@ -1,7 +1,7 @@
 <template>
-    <div class="sidePanel-outer" :class="{'is-Show':isShow}">
+    <div class="sidePanel-outer" :class="{'is-Show':showBar}">
         <div class="sidePanel">
-           <slot>asasas</slot>
+            <slot>Loading...</slot>
         </div>
     </div>
 </template>
@@ -13,22 +13,14 @@
 
         data() {
             return {
-                isShow: false
             }
         },
-        mounted(){
-            Event.$on('showSidePanel', () => {
-                this.isShow = true;
-            });
-
-            Event.$on('hideSidePanel', () => {
-                this.isShow = false;
-            });
-
-            Event.$on('toggleSidePanel', () => {
-                this.isShow = !this.isShow;
-            });
-        }
+        computed:{
+            showBar(){
+                return this.$store.getters.showPanel;
+            }
+        },
+        mounted() {}
 
     }
 </script>

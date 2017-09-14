@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import User from '../components/Users/User.vue'
-import addUser from '../components/Users/form/addUser.vue'
+import UserForm from '../components/Users/form/form.vue'
 
 Vue.use(Router);
 
@@ -16,7 +16,7 @@ const routes = [
         path: '/user/add',
         components: {
             default: User,
-            sidePanel: addUser,
+            sidePanel: UserForm,
         },
         props: {
             default: true,
@@ -27,7 +27,7 @@ const routes = [
             path: '/user/edit/:id',
             components: {
                 default: User,
-                sidePanel: addUser,
+                sidePanel: UserForm,
             },
             props: {
                 default: true,

@@ -56,7 +56,8 @@
         },
 
         methods: {
-            addNew() {}
+            addNew() {
+            }
         },
 
         components: {
@@ -68,5 +69,3 @@
 <style lang="scss">
     @import "scss/main.scss";
 </style>
-6cjkl;'
-[poiuytrtyuioppo./

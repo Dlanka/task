@@ -1,11 +1,11 @@
 //Colors
-$primary:#00BCD4;
-$p-light:#62efff;
-$p-dark:#008ba3;
+$primary: #00BCD4;
+$p-light: #62efff;
+$p-dark: #008ba3;
 
-$secondary:#8bc34a;
-$s-light:#bef67a;
-$s-dark:#5a9216;
+$secondary: #8bc34a;
+$s-light: #bef67a;
+$s-dark: #5a9216;
 
 $black: #000000;
 $grey: #212121;
@@ -16,6 +16,10 @@ $green: #8BC34A;
 $red: #F44336;
 
 $primary: $cyan;
+
+//Message color
+$success: $s-dark;
+$error: $red;
 
 //Font Size
 $f-size-xs-big: 42px;

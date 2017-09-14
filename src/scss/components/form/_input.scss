@@ -3,6 +3,7 @@ $bottomLineFocusColor: #4285f4;
 $labelFocusColor: #4285f4;
 $labelColor: rgba(0, 0, 0, 0.56);
 $inputColor: rgba(0, 0, 0, 0.86);
+$error: #ff7006;
 $fontWeight300: 300;
 
 @mixin bottom-line {
@@ -93,6 +94,30 @@ $fontWeight300: 300;
     .animate-line {
       width: 100%;
     }
+  }
+
+  &.is-error {
+
+    input:not([type="checkbox"]),
+    input:not([type="radio"]) {
+    }
+
+    label {
+      color: $error;
+    }
+
+    .animate-line {
+      background: $error;
+      width: 100%;
+    }
+
+    .error {
+      font-size: 12px;
+      color: rgba($error, 0.86);
+      position: absolute;
+      padding: 5px 0;
+    }
+
   }
 
 }

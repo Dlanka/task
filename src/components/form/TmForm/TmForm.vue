@@ -44,16 +44,62 @@
                 default: ''
             },
         },
+        data() {
+            return {
+                inputs: []
+            }
+        },
+
+        mounted() {
+            this.pushInputs();
+        },
 
         methods: {
             onSubmit(e) {
+                console.log(this.$refs.myForm)
                 this.$emit('submit', e);
+            },
+
+            getInputs() {
+                var result = [];
+                const search = (children) => {
+                    for (let child of children) {
+                        if (child.valid !== undefined) {
+                            result.push(child);
+                        } else {
+                            search(child.$children)
+                        }
+                    }
+                    return result;
+                };
+
+                return search(this.$children);
+            },
+
+            pushInputs() {
+                const _inputs = this.getInputs();
+                for (const child of _inputs) {
+
+                    if (this.inputs.includes(child)) {
+                        continue;
+                    }
+                    this.inputs.push(child);
+                }
             },
 
             onClose(e) {
                 this.$emit('close', e);
                 this.$store.dispatch('showSideBar', false);
                 this.$router.go(-1)
+            },
+
+            validateForm() {
+
+                var isValid = this.inputs.every(input => {
+                    return input.valid == true;
+                });
+
+                return isValid;
             }
         }
 

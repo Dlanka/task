@@ -14,59 +14,109 @@
             min: String,
             value: {
                 required: false
+            },
+            rule: {
+                default: ""
             }
         },
 
         data() {
             return {
-                lazyValue: this.value !== undefined ? this.value : ''
+                lazyValue: this.value !== undefined ? this.value : '',
+                hasRule: false,
+                errorMessage: '',
+                isFocus: false,
+                isEmpty: true,
+                valid: false
             }
         },
 
         computed: {
+
             inputValue: {
-                get () {
+                get() {
                     return this.value;
                 },
-                set (value) {
+                set(value) {
                     this.lazyValue = value;
                 }
             },
 
-            isNotEmpty() {
-                return this.inputValue.length > 0 ? true : false;
+            classes() {
+                return {
+                    'is-error': this.hasRule,
+                    'input-group': true,
+                    'is-not-empty': !this.isEmpty,
+                    'is-focus': this.isFocus
+                }
+            }
+        },
+
+        watch: {
+
+            rule(val) {
+                this.showRules();
+            },
+
+            errorMessage() {
+                this.showRules();
             }
         },
 
         mounted() {
             this.onBlur();
+            //this.showRules();
+            if (this.rule.length == 0) {
+                this.valid = undefined;
+            }
+
         },
 
         methods: {
+            showRules() {
+
+                if (this.rule instanceof Array) {
+
+                    if (this.rule.length > 0) {
+                        let errorMsg = this.rule.filter((rule) => {
+                            if (rule !== true) {
+                                return rule;
+                            }
+                        });
+
+                        errorMsg.length > 0 ? this.hasRule = true : this.hasRule = false;
+                        this.hasRule !== true ? this.valid = true : this.valid = false;
+                        this.errorMessage = errorMsg[0];
+                    }
+
+                }
+            },
+
             onInput(e) {
                 this.inputValue = e.target.value;
                 this.$emit('input', e.target.value);
             },
-            onFocus() {
-                const inputGroup = this.$refs.inputGroup;
-                inputGroup.classList.add('is-focus');
+            onFocus(e) {
+                this.isFocus = true;
+
             },
 
             onBlur() {
-                const inputGroup = this.$refs.inputGroup;
+                this.isFocus = false;
 
-                inputGroup.classList.remove('is-focus');
                 if (this.lazyValue.length > 0) {
-                    inputGroup.classList.add('is-not-empty');
+                    this.isEmpty = false;
                 } else {
-                    inputGroup.classList.remove('is-not-empty');
+                    this.isEmpty = true;
+                    this.showRules();
                 }
             }
         },
 
         render(createElement) {
             let self = this;
-            let labelElement = null;
+            let labelElement,
+                errorDiv = null;
 
             //Check prop label is undefined
             if (this.label !== undefined) {
@@ -79,12 +129,21 @@
                 )
             }
 
+
+            if (this.rule) {
+                errorDiv = createElement(
+                    'div', {
+                        'class': {
+                            'error': true
+                        },
+                        ref: 'error'
+                    }, self.errorMessage
+                );
+            }
+
             return createElement(
                 'div', {
-                    'class': {
-                        'input-group': true,
-                        'is-not-empty': this.isNotEmpty
-                    },
+                    'class': this.classes,
                     ref: 'inputGroup'
                 },
                 [
@@ -135,6 +194,9 @@
                             'bottom-line': true
                         }
                     }),
+
+                    //Error
+                    errorDiv
                 ]
             )
         }

@@ -1,8 +1,13 @@
-import {fetchData, allUser, addUser, getUserByKey} from "../../api/user"
+import {auth} from "../../api/api"
+import {fetchData, allUser, addUser, updateUser} from "../../api/user"
 
 const state = {
     users: [],
-    user: null
+    user: null,
+    logInUser: {
+        id: null,
+        name: null
+    }
 };
 
 const getters = {
@@ -26,22 +31,45 @@ const mutations = {
 const actions = {
 
     addUser({commit}, _user) {
-        addUser(_user).then(function (userObj) {
-            var userData = Object.assign(
-                _user,
-                {id: userObj.key}
-            );
-            commit('addUser', userData);
+        return new Promise((resolve, reject) => {
+
+            auth()
+                .createUser(_user.email, _user.password)
+                .then(function (res) {
+
+                    let userDataWithId = Object.assign(_user, {authId: res.uid});
+
+                    addUser(_user)
+                        .then(function (userObj) {
+                            var userData = Object.assign(
+                                userDataWithId,
+                                {id: userObj.key}
+                            );
+                            resolve(true);
+                            commit('addUser', userData);
+                        });
+                })
+                .catch(error => {
+                    reject(error.message);
+                });
+
         });
+
+    },
+
+    editUser({commit}, payload) {
+        updateUser(payload);
     },
 
     allUsers({commit}) {
         allUser().then(function (val) {
 
             var data = [];
+
             for (let key in val) {
                 var obj = {
                     id: key,
+                    authId: val[key].authId,
                     firstName: val[key].firstName,
                     lastName: val[key].lastName,
                     email: val[key].email,
@@ -63,6 +91,10 @@ const actions = {
                     reject(error)
                 })
         });
+
+    },
+
+    logIn({commit}, payload) {
 
     }
 
